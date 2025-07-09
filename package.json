@@ -1,0 +1,27 @@
+{
+  "name": "solidjs-filetree",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/FileTree.jsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "enchant97",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.10.0",
+  "peerDependencies": {
+    "solid-js": "^1.9.7",
+    "@solidjs/router": "^0.15.3"
+  },
+  "devDependencies": {
+    "vite": "^7.0.3",
+    "vite-plugin-solid": "^2.11.7"
+  },
+  "dependencies": {
+  }
+}

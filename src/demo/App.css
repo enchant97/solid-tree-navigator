@@ -1,0 +1,46 @@
+.ft-tree,
+.ft-tree-node,
+.ft-tree-nodes {
+    list-style: none;
+}
+
+.ft-tree-node {
+    display: flex;
+    gap: 0.25rem;
+    border: 1px solid black;
+    margin-bottom: 0.4rem;
+    text-decoration: none;
+    color: black;
+}
+
+.ft-tree-node-label {
+    padding: 0.75rem;
+    width: 100%;
+}
+
+.ft-tree-node-label:hover {
+    background-color: darkgray;
+    transition-duration: 200ms;
+}
+
+.ft-tree-node>.ft-tree-node-expand-btn,
+.ft-tree-node>.ft-tree-node-icon {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 0 0.75rem;
+}
+
+.ft-tree-node>.ft-tree-node-expand-btn:hover,
+.ft-tree-node>.ft-tree-node-icon:hover {
+    background-color: darkgray;
+    transition-duration: 200ms;
+}
+
+.ft-active,
+.ft-tree-node>.ft-active {
+    background-color: skyblue;
+}
