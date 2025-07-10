@@ -29,7 +29,7 @@ import { Dynamic } from "solid-js/web";
 /**
  * @param {IconProps} props
  */
-export function FileIcon({ active }) {
+function FileIcon({ active }) {
     return (
         <span
             class="ft-tree-node-icon"
@@ -41,7 +41,7 @@ export function FileIcon({ active }) {
 /**
  * @param {IconProps} props
  */
-export function FolderIcon({ active }) {
+function FolderIcon({ active }) {
     return (
         <span
             class="ft-tree-node-icon"
@@ -118,10 +118,11 @@ function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
 }
 
 /**
+ * The file tree component.
  * @param {Object} props
- * @param {Node[]} props.nodes
- * @param {import("solid-js").Component<IconProps>} [props.fileIcon]
- * @param {import("solid-js").Component<IconProps>} [props.folderIcon]
+ * @param {Node[]} props.nodes - The file tree nodes
+ * @param {import("solid-js").Component<IconProps>} [props.fileIcon] - Customise the file icon
+ * @param {import("solid-js").Component<IconProps>} [props.folderIcon] - Customise the folder icon
  */
 function FileTree({ nodes, fileIcon, folderIcon, ...props }) {
     return (
