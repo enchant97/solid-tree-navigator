@@ -13,6 +13,7 @@
  */
 import { For, Show, createSignal } from "solid-js";
 import { A, useLocation } from "@solidjs/router";
+import { Dynamic } from "solid-js/web";
 
 /**
  * @typedef {Object} Node
@@ -22,13 +23,43 @@ import { A, useLocation } from "@solidjs/router";
  */
 
 /**
+ * @typedef {Object} IconProps
+ * @property {import("solid-js").Accessor<boolean>} active
+
+/**
+ * @param {IconProps} props
+ */
+export function FileIcon({ active }) {
+    return (
+        <span
+            class="ft-tree-node-icon"
+            classList={{ "ft-active": active() }}
+        >Fi</span>
+    )
+}
+
+/**
+ * @param {IconProps} props
+ */
+export function FolderIcon({ active }) {
+    return (
+        <span
+            class="ft-tree-node-icon"
+            classList={{ "ft-active": active() }}
+        >Fo</span>
+    )
+}
+
+/**
  * @param {Object} props
+ * @param {import("solid-js").Component<IconProps>} props.fileIcon
+ * @param {import("solid-js").Component<IconProps>} props.folderIcon
  * @param {string} props.title
  * @param {string} props.href
  * @param {Node[]} [props.nodes]
  * @param {number[]} props.indexes
  */
-function FileTreeNode({ title, href, nodes, indexes }) {
+function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
     const location = useLocation();
     const showActive = () => location.pathname.startsWith(href)
     const [expand, setExpand] = createSignal(showActive())
@@ -45,10 +76,7 @@ function FileTreeNode({ title, href, nodes, indexes }) {
                 <Show
                     when={nodes !== undefined}
                     fallback={(
-                        <span
-                            class="ft-tree-node-icon"
-                            classList={{ "ft-active": showActive() }}
-                        >Fi</span>
+                        <Dynamic component={fileIcon} active={showActive} />
                     )}
                 >
                     <button
@@ -60,7 +88,7 @@ function FileTreeNode({ title, href, nodes, indexes }) {
                                 setExpand(!expand());
                             }
                         }}
-                    ><span class="ft-tree-node-icon">Fo</span></button>
+                    ><Dynamic component={folderIcon} active={showActive} /></button>
                 </Show>
                 <span
                     class="ft-tree-node-label"
@@ -76,6 +104,8 @@ function FileTreeNode({ title, href, nodes, indexes }) {
                     <For each={nodes}>
                         {(node, i) => (
                             <FileTreeNode
+                                fileIcon={fileIcon}
+                                folderIcon={folderIcon}
                                 indexes={[...indexes, i()]}
                                 {...node}
                             />
@@ -90,13 +120,17 @@ function FileTreeNode({ title, href, nodes, indexes }) {
 /**
  * @param {Object} props
  * @param {Node[]} props.nodes
+ * @param {import("solid-js").Component<IconProps>} [props.fileIcon]
+ * @param {import("solid-js").Component<IconProps>} [props.folderIcon]
  */
-function FileTree({ nodes, ...props }) {
+function FileTree({ nodes, fileIcon, folderIcon, ...props }) {
     return (
         <ul class="ft-tree" role="tree">
             <For each={nodes}>
                 {(node, i) => (
                     <FileTreeNode
+                        fileIcon={fileIcon || FileIcon}
+                        folderIcon={folderIcon || FolderIcon}
                         indexes={[i()]}
                         {...node}
                         {...props}
