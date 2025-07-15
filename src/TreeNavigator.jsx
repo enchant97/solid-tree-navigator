@@ -27,6 +27,7 @@ import { Dynamic } from "solid-js/web";
 /**
  * @typedef {Object} IconProps
  * @property {import("solid-js").Accessor<boolean>} active
+ * @property {import("solid-js").Accessor<boolean>} expand
 
 /**
  * @param {IconProps} props
@@ -78,7 +79,7 @@ function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
                 <Show
                     when={nodes !== undefined}
                     fallback={(
-                        <Dynamic component={fileIcon} active={showActive} />
+                        <Dynamic component={fileIcon} active={showActive} expand={expand} />
                     )}
                 >
                     <button
@@ -90,7 +91,7 @@ function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
                                 setExpand(!expand());
                             }
                         }}
-                    ><Dynamic component={folderIcon} active={showActive} /></button>
+                    ><Dynamic component={folderIcon} active={showActive} expand={expand} /></button>
                 </Show>
                 <span
                     class="tn-tree-node-label"
