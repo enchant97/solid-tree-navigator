@@ -1,5 +1,5 @@
 import { createStore } from "solid-js/store";
-import FileTree from "../FileTree";
+import TreeNavigator from "../TreeNavigator";
 import "./App.css";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         }
     ]);
     return (
-        <FileTree nodes={tree} />
+        <TreeNavigator nodes={tree} />
     )
 }
 

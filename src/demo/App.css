@@ -1,15 +1,15 @@
-.ft-tree,
-.ft-tree-node,
-.ft-tree-nodes {
+.tn-tree,
+.tn-tree-node,
+.tn-tree-nodes {
     list-style: none;
 }
 
-.ft-tree {
+.tn-tree {
     padding: 0;
     margin: 0;
 }
 
-.ft-tree-node {
+.tn-tree-node {
     display: flex;
     gap: 0.25rem;
     border: 1px solid black;
@@ -18,18 +18,18 @@
     color: black;
 }
 
-.ft-tree-node-label {
+.tn-tree-node-label {
     padding: 0.75rem;
     width: 100%;
 }
 
-.ft-tree-node-label:hover {
+.tn-tree-node-label:hover {
     background-color: darkgray;
     transition-duration: 200ms;
 }
 
-.ft-tree-node>.ft-tree-node-expand-btn,
-.ft-tree-node>.ft-tree-node-icon {
+.tn-tree-node>.tn-tree-node-expand-btn,
+.tn-tree-node>.tn-tree-node-icon {
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -39,13 +39,13 @@
     padding: 0 0.75rem;
 }
 
-.ft-tree-node>.ft-tree-node-expand-btn:hover,
-.ft-tree-node>.ft-tree-node-icon:hover {
+.tn-tree-node>.tn-tree-node-expand-btn:hover,
+.tn-tree-node>.tn-tree-node-icon:hover {
     background-color: darkgray;
     transition-duration: 200ms;
 }
 
-.ft-active,
-.ft-tree-node>.ft-active {
+.tn-active,
+.tn-tree-node>.tn-active {
     background-color: skyblue;
 }

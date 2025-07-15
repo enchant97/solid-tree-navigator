@@ -1,9 +1,9 @@
 {
-  "name": "solidjs-filetree",
+  "name": "solid-tree-navigator",
   "version": "0.0.0",
   "description": "",
   "type": "module",
-  "main": "src/FileTree.jsx",
+  "main": "src/TreeNavigator.jsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

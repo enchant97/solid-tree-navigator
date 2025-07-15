@@ -1,15 +1,17 @@
-/* Copyright 2025 Leo Spratt
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2025 Leo Spratt.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 import { For, Show, createSignal } from "solid-js";
 import { A, useLocation } from "@solidjs/router";
@@ -32,8 +34,8 @@ import { Dynamic } from "solid-js/web";
 function FileIcon({ active }) {
     return (
         <span
-            class="ft-tree-node-icon"
-            classList={{ "ft-active": active() }}
+            class="tn-tree-node-icon"
+            classList={{ "tn-active": active() }}
         >Fi</span>
     )
 }
@@ -44,8 +46,8 @@ function FileIcon({ active }) {
 function FolderIcon({ active }) {
     return (
         <span
-            class="ft-tree-node-icon"
-            classList={{ "ft-active": active() }}
+            class="tn-tree-node-icon"
+            classList={{ "tn-active": active() }}
         >Fo</span>
     )
 }
@@ -59,17 +61,17 @@ function FolderIcon({ active }) {
  * @param {Node[]} [props.nodes]
  * @param {number[]} props.indexes
  */
-function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
+function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
     const location = useLocation();
     const showActive = () => location.pathname.startsWith(href)
     const [expand, setExpand] = createSignal(showActive())
     return (
         <li role="none" aria-expanded={expand()}>
             <A
-                activeClass="ft-active"
-                inactiveClass="ft-inactive"
+                activeClass="tn-active"
+                inactiveClass="tn-inactive"
                 end={true}
-                class="ft-tree-node"
+                class="tn-tree-node"
                 role="treeitem"
                 href={href}
             >
@@ -80,8 +82,8 @@ function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
                     )}
                 >
                     <button
-                        class="ft-tree-node-expand-btn"
-                        classList={{ "ft-active": showActive() }}
+                        class="tn-tree-node-expand-btn"
+                        classList={{ "tn-active": showActive() }}
                         onClick={(ev) => {
                             ev.preventDefault()
                             if (nodes !== undefined) {
@@ -91,7 +93,7 @@ function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
                     ><Dynamic component={folderIcon} active={showActive} /></button>
                 </Show>
                 <span
-                    class="ft-tree-node-label"
+                    class="tn-tree-node-label"
                     onClick={() => {
                         if (nodes !== undefined) {
                             setExpand(true)
@@ -100,10 +102,10 @@ function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
                 >{title}</span>
             </A>
             <Show when={nodes !== undefined && expand()}>
-                <ul class="ft-tree-nodes" role="group">
+                <ul class="tn-tree-nodes" role="group">
                     <For each={nodes}>
                         {(node, i) => (
-                            <FileTreeNode
+                            <TreeNode
                                 fileIcon={fileIcon}
                                 folderIcon={folderIcon}
                                 indexes={[...indexes, i()]}
@@ -124,12 +126,12 @@ function FileTreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
  * @param {import("solid-js").Component<IconProps>} [props.fileIcon] - Customise the file icon
  * @param {import("solid-js").Component<IconProps>} [props.folderIcon] - Customise the folder icon
  */
-function FileTree({ nodes, fileIcon, folderIcon, ...props }) {
+function TreeNavigator({ nodes, fileIcon, folderIcon, ...props }) {
     return (
-        <ul class="ft-tree" role="tree">
+        <ul class="tn-tree" role="tree">
             <For each={nodes}>
                 {(node, i) => (
-                    <FileTreeNode
+                    <TreeNode
                         fileIcon={fileIcon || FileIcon}
                         folderIcon={folderIcon || FolderIcon}
                         indexes={[i()]}
@@ -142,4 +144,4 @@ function FileTree({ nodes, fileIcon, folderIcon, ...props }) {
     )
 }
 
-export default FileTree
+export default TreeNavigator
