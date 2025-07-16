@@ -123,21 +123,20 @@ function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
 /**
  * The file tree component.
  * @param {Object} props
- * @param {Node[]} props.nodes - The file tree nodes
+ * @param {import("solid-js").Accessor<Node[]>} props.nodes - The file tree nodes
  * @param {import("solid-js").Component<IconProps>} [props.fileIcon] - Customise the file icon
  * @param {import("solid-js").Component<IconProps>} [props.folderIcon] - Customise the folder icon
  */
-function TreeNavigator({ nodes, fileIcon, folderIcon, ...props }) {
+function TreeNavigator(props) {
     return (
         <ul class="tn-tree" role="tree">
-            <For each={nodes}>
+            <For each={props.nodes()}>
                 {(node, i) => (
                     <TreeNode
-                        fileIcon={fileIcon || FileIcon}
-                        folderIcon={folderIcon || FolderIcon}
+                        fileIcon={props.fileIcon || FileIcon}
+                        folderIcon={props.folderIcon || FolderIcon}
                         indexes={[i()]}
                         {...node}
-                        {...props}
                     />
                 )}
             </For>
