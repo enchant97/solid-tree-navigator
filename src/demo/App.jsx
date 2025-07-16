@@ -24,7 +24,7 @@ function App() {
         }
     ]);
     return (
-        <TreeNavigator nodes={tree} />
+        <TreeNavigator nodes={() => tree} />
     )
 }
 

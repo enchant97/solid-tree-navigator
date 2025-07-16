@@ -12,7 +12,7 @@
         "types": [
             "vite/client"
         ],
-        "noEmit": true,
+        "noEmit": false,
         "isolatedModules": true
     },
     "include": [

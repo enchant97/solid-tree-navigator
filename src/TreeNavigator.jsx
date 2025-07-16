@@ -61,11 +61,12 @@ function FolderIcon({ active }) {
  * @param {string} props.href
  * @param {Node[]} [props.nodes]
  * @param {number[]} props.indexes
+ * @param {boolean} props.defaultExpandAll
  */
-function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
+function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes, defaultExpandAll }) {
     const location = useLocation();
     const showActive = () => location.pathname.startsWith(href)
-    const [expand, setExpand] = createSignal(showActive())
+    const [expand, setExpand] = createSignal(showActive() || defaultExpandAll)
     return (
         <li role="none" aria-expanded={expand()}>
             <A
@@ -107,6 +108,7 @@ function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
                     <For each={nodes}>
                         {(node, i) => (
                             <TreeNode
+                                defaultExpandAll={defaultExpandAll}
                                 fileIcon={fileIcon}
                                 folderIcon={folderIcon}
                                 indexes={[...indexes, i()]}
@@ -124,6 +126,7 @@ function TreeNode({ fileIcon, folderIcon, title, href, nodes, indexes }) {
  * The file tree component.
  * @param {Object} props
  * @param {import("solid-js").Accessor<Node[]>} props.nodes - The file tree nodes
+ * @param {import("solid-js").Accessor<boolean>} [props.defaultExpandAll] - Whether to default all folders being expanded
  * @param {import("solid-js").Component<IconProps>} [props.fileIcon] - Customise the file icon
  * @param {import("solid-js").Component<IconProps>} [props.folderIcon] - Customise the folder icon
  */
@@ -133,6 +136,7 @@ function TreeNavigator(props) {
             <For each={props.nodes()}>
                 {(node, i) => (
                     <TreeNode
+                        defaultExpandAll={props.defaultExpandAll !== undefined ? props.defaultExpandAll() : false}
                         fileIcon={props.fileIcon || FileIcon}
                         folderIcon={props.folderIcon || FolderIcon}
                         indexes={[i()]}
